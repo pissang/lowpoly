@@ -1,0 +1,25 @@
+uniform sampler2D texture;
+varying vec2 v_Texcoord;
+
+uniform float textureWidth;
+uniform float textureHeight;
+
+uniform float upperThreshold: 0.2;
+uniform float lowerThreshold: 0.1;
+
+void main()
+{
+    vec3 currentGradientAndDirection = texture2D(texture, v_Texcoord).rgb;
+    vec2 gradientDirection = ((currentGradientAndDirection.gb * 2.0) - 1.0) * vec2(1.0/textureWidth, 1.0/textureHeight);
+
+    float firstSampledGradientMagnitude = texture2D(texture, v_Texcoord + gradientDirection).r;
+    float secondSampledGradientMagnitude = texture2D(texture, v_Texcoord - gradientDirection).r;
+
+    float multiplier = step(firstSampledGradientMagnitude, currentGradientAndDirection.r);
+    multiplier = multiplier * step(secondSampledGradientMagnitude, currentGradientAndDirection.r);
+
+    float thresholdCompliance = smoothstep(lowerThreshold, upperThreshold, currentGradientAndDirection.r);
+    multiplier = multiplier * thresholdCompliance;
+
+    gl_FragColor = vec4(multiplier, multiplier, multiplier, 1.0);
+}
