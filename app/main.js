@@ -105,6 +105,7 @@ define(function (require) {
 
         outPass.setUniform('texture', res);
         outPass.render(renderer, frameBuffer);
+        // return;
         
         frameBuffer.bind(renderer);
         var gl = renderer.gl;
@@ -115,9 +116,19 @@ define(function (require) {
         var points = [];
         var count = 0;
         for (var x = 0; x < res.width; x++) {
+            var x1 = Math.max(x + 1, res.width - 1);
+
             for (var y = 0; y < res.height; y++) {
                 var i = y * res.width + x;
+                var y1 = Math.max(y + 1, res.height - 1);
+
                 if (pixels[i * 4] > 240) {
+                    var right = x1 + y * res.width;
+                    var bottom = x + y1 * res.width;
+                    var rightBottom = x1 + y1 * res.width;
+
+                    pixels[right] = pixels[bottom] = pixels[rightBottom] = 0;
+
                     points.push([x / res.width * 2 - 1, y / res.height * 2 - 1])
                 }
             }

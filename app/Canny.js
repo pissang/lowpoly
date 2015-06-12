@@ -38,16 +38,16 @@ define(function (require) {
         this._frameBuffer = new FrameBuffer();
 
         this._rt0 = new Texture2D({
-            width: 128,
-            height: 128
+            width: 256,
+            height: 256
         });
         this._rt1 = new Texture2D({
-            width: 128,
-            height: 128
+            width: 256,
+            height: 256
         });
 
-        this._passes[1].setUniform('blurSize', 0.1);
-        this._passes[2].setUniform('blurSize', 0.1);
+        this._passes[1].setUniform('blurSize', 0.2);
+        this._passes[2].setUniform('blurSize', 0.2);
     };
 
     Canny.prototype.filter = function (texture) {
