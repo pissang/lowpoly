@@ -46,8 +46,8 @@ define(function (require) {
             height: 256
         });
 
-        this._passes[1].setUniform('blurSize', 0.2);
-        this._passes[2].setUniform('blurSize', 0.2);
+        this._passes[1].setUniform('blurSize', 0.1);
+        this._passes[2].setUniform('blurSize', 0.1);
     };
 
     Canny.prototype.filter = function (texture) {

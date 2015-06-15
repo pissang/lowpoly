@@ -40,6 +40,12 @@ void main()
     float h = -topLeft-2.0*top-topRight+bottomLeft+2.0*bottom+bottomRight;
     float v = -bottomLeft-2.0*left-topLeft+bottomRight+2.0*right+topRight;
 
-    float mag = length(vec2(h,v));
-    gl_FragColor = vec4(vec3(mag), 1.0);
+    vec2 d = vec2(h, v);
+    float mag = length(d);
+    d /= mag;
+
+    d = sign(d) * floor(abs(d) + 0.617316); // Offset by 1-sin(pi/8) to set to 0 if near axis, 1 if away
+    d = (d + 1.0) * 0.5; // Place -1.0 - 1.0 within 0 - 1.0
+
+    gl_FragColor = vec4(mag, d.x, d.y, 1.0);
 }

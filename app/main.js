@@ -127,7 +127,7 @@ define(function (require) {
                     var bottom = x + y1 * res.width;
                     var rightBottom = x1 + y1 * res.width;
 
-                    pixels[right] = pixels[bottom] = pixels[rightBottom] = 0;
+                    pixels[right * 4] = pixels[bottom * 4] = pixels[rightBottom * 4] = 0;
 
                     points.push([x / res.width * 2 - 1, y / res.height * 2 - 1])
                 }
