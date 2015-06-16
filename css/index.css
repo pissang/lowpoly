@@ -1,3 +1,15 @@
 body {
     margin: 0;
+    background: #4A4747;
+    text-align: center;
+    overflow: hidden;
+    padding-top: 5px;
+}
+
+#main {
+    margin: 100px auto;
+}
+
+#output {
+    box-shadow: 0 0 50px black;
 }

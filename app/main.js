@@ -20,9 +20,9 @@ define(function (require) {
     var animation = new Animation();
 
     var renderer = new Renderer({
-        canvas: document.getElementById('main')
+        canvas: document.getElementById('output')
     });
-    renderer.resize(500, 500);
+    renderer.resize(100, 100);
 
     var cannyEdge = new Canny(renderer);
 
@@ -38,9 +38,9 @@ define(function (require) {
             video.onloadedmetadata = function(e) {
                 video.play();
                 animation.start();
+
+                renderer.resize(video.videoWidth, video.videoHeight);
             };
-            video.width = 512;
-            video.height = 256;
         }, function (err) {
             alert('Request camera failed');
         });
@@ -50,7 +50,7 @@ define(function (require) {
     var videoCtx = videoCanvas.getContext('2d');
     videoCanvas.width = 512;
     videoCanvas.height = 512;
-    document.body.appendChild(videoCanvas);
+    // document.body.appendChild(videoCanvas);
     var texture = new Texture2D({
         image: videoCanvas,
         dynamic: true
@@ -136,7 +136,7 @@ define(function (require) {
         // Add boundary points
         points.push([-1, -1], [1, 1], [1, -1], [-1, 1]);
 
-        debugPoints(points);
+        // debugPoints(points);
 
         canvas.width = res.width;
         canvas.height = res.height;
